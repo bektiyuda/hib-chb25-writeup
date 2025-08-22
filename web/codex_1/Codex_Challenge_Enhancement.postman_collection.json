@@ -1,0 +1,128 @@
+{
+	"info": {
+		"_postman_id": "cdb6bfc0-2117-4fb7-ac42-b4aa58207c87",
+		"name": "Codex Challenge Enhancement",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "29112530"
+	},
+	"item": [
+		{
+			"name": "Register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"your_username\",\r\n    \"password\": \"your_password\",\r\n    \"description\": \"Hallo!\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://m4.lu:7557/register",
+					"protocol": "http",
+					"host": [
+						"m4",
+						"lu"
+					],
+					"port": "7557",
+					"path": [
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// Parse the JSON response body\r",
+							"let response = pm.response.json();\r",
+							"\r",
+							"// Optional: log the response to Postman console for debugging\r",
+							"console.log(\"Login Response:\", response);\r",
+							"\r",
+							"// Assuming the token is in response.token (adjust as needed)\r",
+							"if (response.token) {\r",
+							"    pm.collectionVariables.set(\"bearer_token\", response.token);\r",
+							"    console.log(\"Bearer token saved to collection variable.\");\r",
+							"} else {\r",
+							"    console.error(\"Token not found in response.\");\r",
+							"}\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"your_username\",\r\n    \"password\": \"your_password\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://m4.lu:7557/login",
+					"protocol": "http",
+					"host": [
+						"m4",
+						"lu"
+					],
+					"port": "7557",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "My Profile",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{bearer_token}}",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://m4.lu:7557/me",
+					"protocol": "http",
+					"host": [
+						"m4",
+						"lu"
+					],
+					"port": "7557",
+					"path": [
+						"me"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "bearer_token",
+			"value": ""
+		}
+	]
+}
