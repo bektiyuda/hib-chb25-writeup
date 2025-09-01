@@ -1,4 +1,4 @@
-# Unofficial Cat - Stack Buffer Overflow with Guard Variable Write-up
+# Stack Buffer Overflow with Guard Variable Write-up
 
 ## Challenge Information
 
